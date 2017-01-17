@@ -8,10 +8,10 @@ import com.fulaan.model.UserInfo;
  */
 public interface Auth {
 
-    String getAuthUrl();
+  String getAuthUrl();
 
-    UserInfo getUserInfo(String authCode) throws ConnectException;
+  UserInfo getUserInfo(String authCode) throws ConnectException;
 
-    UserInfo getUserInfoByWap(String authCode) throws ConnectException;
+  UserInfo getUserInfoByWap(String authCode) throws ConnectException;
 
 }

@@ -9,11 +9,11 @@ import com.fulaan.connect.WeChatAuth;
  */
 public class AuthFactory {
 
-    public static Auth getQQAuth() {
-        return new QQAuth();
-    }
+  public static Auth getQQAuth() {
+    return new QQAuth();
+  }
 
-    public static Auth getWechatAuth() {
-        return new WeChatAuth();
-    }
+  public static Auth getWechatAuth() {
+    return new WeChatAuth();
+  }
 }

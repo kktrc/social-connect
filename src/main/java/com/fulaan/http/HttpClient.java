@@ -21,59 +21,61 @@ import java.util.Map;
  */
 public class HttpClient {
 
-    private static CloseableHttpClient http = HttpClientBuilder.create().build();
+  private static CloseableHttpClient http = HttpClientBuilder.create().build();
 
-    public static String get(String url) throws IOException {
-        HttpGet get = new HttpGet(url);
-        HttpResponse response = http.execute(get);
-        if (response.getStatusLine().getStatusCode() == 200) {
-            HttpEntity entity = response.getEntity();
-            return getStrFromInputStream(entity.getContent());
-        }
-        return null;
+  private static String get(String url) throws IOException {
+    HttpGet get = new HttpGet(url);
+    HttpResponse response = http.execute(get);
+    if (response.getStatusLine().getStatusCode() == 200) {
+      HttpEntity entity = response.getEntity();
+      return getStrFromInputStream(entity.getContent());
     }
+    return null;
+  }
 
-    private static String getStrFromInputStream(InputStream inputStream) {
-        try {
-            return IOUtils.toString(inputStream,"utf-8");
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
+  private static String getStrFromInputStream(InputStream inputStream) {
+    try {
+      return IOUtils.toString(inputStream, "utf-8");
+    } catch (IOException e) {
+      e.printStackTrace();
+      return null;
     }
+  }
 
-    /**
-     *  http请求
-     * @param url
-     * @param params
-     * @return
-     * @throws ClientProtocolException
-     * @throws IOException
-     */
-    public static String get(String url,Map<String,String> params)  throws IOException{
-        String encodeUrl = url + "?" + urlEncode(params);
-        return get(encodeUrl);
-    }
+  /**
+   * http请求
+   *
+   * @param url
+   * @param params
+   * @return
+   * @throws ClientProtocolException
+   * @throws IOException
+   */
+  public static String get(String url, Map<String, String> params) throws IOException {
+    String encodeUrl = url + "?" + urlEncode(params);
+    return get(encodeUrl);
+  }
 
-    /**
-     * encode url
-     * @param map
-     * @return
-     */
-    public static String urlEncode(Map<String,String> map) {
-        String retVal = "";
-        if(map == null) return retVal;
-        Iterator<String> keys = map.keySet().iterator();
-        while (keys.hasNext()) {
-            String key = keys.next();
-            String value = map.get(key);
-            try {
-                String encodeValue = URLEncoder.encode(value, "UTF8");
-                retVal += key + "=" + encodeValue + "&";
-            } catch (UnsupportedEncodingException ex) {
-            }
-        }
-        return retVal.substring(0,retVal.length() - 1);
+  /**
+   * encode url
+   *
+   * @param map
+   * @return
+   */
+  private static String urlEncode(Map<String, String> map) {
+    String retVal = "";
+    if (map == null) return retVal;
+    Iterator<String> keys = map.keySet().iterator();
+    while (keys.hasNext()) {
+      String key = keys.next();
+      String value = map.get(key);
+      try {
+        String encodeValue = URLEncoder.encode(value, "UTF8");
+        retVal += key + "=" + encodeValue + "&";
+      } catch (UnsupportedEncodingException ex) {
+      }
     }
+    return retVal.substring(0, retVal.length() - 1);
+  }
 
 }
