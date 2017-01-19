@@ -23,7 +23,7 @@ public class HttpClient {
 
   private static CloseableHttpClient http = HttpClientBuilder.create().build();
 
-  private static String get(String url) throws IOException {
+  public static String get(String url) throws IOException {
     HttpGet get = new HttpGet(url);
     HttpResponse response = http.execute(get);
     if (response.getStatusLine().getStatusCode() == 200) {
@@ -33,7 +33,7 @@ public class HttpClient {
     return null;
   }
 
-  private static String getStrFromInputStream(InputStream inputStream) {
+  public static String getStrFromInputStream(InputStream inputStream) {
     try {
       return IOUtils.toString(inputStream, "utf-8");
     } catch (IOException e) {

@@ -1,6 +1,9 @@
 package com.fulaan.connect;
 
 import com.fulaan.exception.ConnectException;
+import com.fulaan.http.Method;
+import com.fulaan.http.Requester;
+import com.fulaan.model.Api;
 import com.fulaan.model.Sex;
 import com.fulaan.model.UserInfo;
 import com.fulaan.util.Util;
@@ -88,5 +91,14 @@ public class QQAuth implements Auth {
       e.printStackTrace();
     }
     return null;
+  }
+
+  public static void main(String[] args) {
+    try {
+      Api api = new Requester("https://api.github.com").method(Method.GET).to("/",Api.class);
+      api.getAuthorizations_url();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 }
